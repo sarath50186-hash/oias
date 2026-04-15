@@ -1049,7 +1049,7 @@
 
         .testimonial-quote {
             font-family: 'Playfair Display', serif;
-            font-size: 24px;
+            font-size: 18px;
             color: var(--text-primary);
             margin-bottom: 20px;
             line-height: 1.8;
@@ -1323,7 +1323,7 @@
         <div class="nav-container">
             <a href="#" class="nav-logo">OIAS</a>
             <ul class="nav-links">
-                <li><a href="#problem">The Problem</a></li>
+                <li><a href="#problem">The Challenge</a></li>
                 <li><a href="#solutions">Solutions</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#execution">Execution</a></li>
@@ -1338,7 +1338,7 @@
             </div>
         </div>
         <div class="mobile-menu">
-            <a href="#problem" onclick="closeMenu()">The Problem</a>
+            <a href="#problem" onclick="closeMenu()">The Challenge</a>
             <a href="#solutions" onclick="closeMenu()">Solutions</a>
             <a href="#about" onclick="closeMenu()">About</a>
             <a href="#execution" onclick="closeMenu()">Execution</a>
@@ -1393,7 +1393,7 @@
                 </div>
 
                 <div class="badges">
-                    <div class="badge">+18.3% Margin Recovered</div>
+                    <div class="badge">+5% Margin Recovered</div>
                     <div class="badge">99.9% Accuracy</div>
                 </div>
 
@@ -1618,7 +1618,7 @@
                     <p>No long setup. We integrate with your existing systems immediately.</p>
                 </div>
                 <div class="highlight-card">
-                    <h4>18% Average Margin Lift</h4>
+                    <h4>5% Average Margin Lift</h4>
                     <p>Our clients see tangible margin recovery within the first quarter.</p>
                 </div>
                 <div class="highlight-card">
@@ -1695,10 +1695,13 @@
 
             <div class="reconciliation-cards">
                 <div class="reconciliation-card">
+                    <h4>Daily MIS Reports</h4>
+                </div>
+                <div class="reconciliation-card">
                     <h4>Purchase Tracking</h4>
                 </div>
                 <div class="reconciliation-card">
-                    <h4>Customer Consumption</h4>
+                    <h4>Consumption</h4>
                 </div>
                 <div class="reconciliation-card">
                     <h4>Kitchen Wastage</h4>
@@ -1708,9 +1711,6 @@
                 </div>
                 <div class="reconciliation-card">
                     <h4>All Other Expenses</h4>
-                </div>
-                <div class="reconciliation-card">
-                    <h4>Daily MIS Reports</h4>
                 </div>
             </div>
 
@@ -2022,31 +2022,33 @@
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sending...';
 
-            // Try using Formspree API
-            fetch('https://formspree.io/f/xvgozkvl', {
+            // Send via FormSubmit.co
+            fetch('https://formsubmit.co/ajax/oiasconsultancyservice@gmail.com', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify({
+                    'Full Name': fullName,
+                    'Contact Number': contactNumber,
+                    'Email ID': emailId,
+                    'Restaurant/Brand Name': restaurantBrand,
+                    'Number of Locations': locations,
+                    '_subject': 'New Data Audit Request from ' + restaurantBrand,
+                    '_captcha': 'false'
+                })
             })
-            .then(response => {
-                if (response.ok) {
-                    messageDiv.textContent = 'Thank you! We will contact you within 24 hours.';
-                    messageDiv.classList.add('success');
-                    messageDiv.classList.remove('error');
-                    formElement.reset();
-                } else {
-                    throw new Error('Form submission failed');
-                }
+            .then(response => response.json())
+            .then(data => {
+                formElement.style.display = 'none';
+                messageDiv.innerHTML = '<div style="text-align:center;padding:2rem;"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><h3 style="font-family:Playfair Display,serif;font-size:1.5rem;margin:1rem 0 0.5rem;color:#fff;">Thank You!</h3><p style="color:rgba(255,255,255,0.6);font-size:0.95rem;">We\'ve received your details. Our team will contact you within 24 hours to schedule your free data audit.</p></div>';
+                messageDiv.classList.add('success');
+                messageDiv.classList.remove('error');
             })
             .catch(error => {
-                // Fallback to mailto
-                const subject = encodeURIComponent('OIAS Data Audit Request');
-                const body = encodeURIComponent('Hello OIAS,\n\nI am interested in the free data audit.\n\nFull Name: ' + fullName + '\nContact Number: ' + contactNumber + '\nEmail ID: ' + emailId + '\nRestaurant/Brand Name: ' + restaurantBrand + '\nNumber of Locations: ' + locations + '\n\nPlease contact me to schedule the audit.\n\nThank you');
-                window.location.href = 'mailto:oiasconsultancyservice@gmail.com?subject=' + subject + '&body=' + body;
-
-                messageDiv.textContent = 'Opening email client. Please send the email to complete your submission.';
+                formElement.style.display = 'none';
+                messageDiv.innerHTML = '<div style="text-align:center;padding:2rem;"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><h3 style="font-family:Playfair Display,serif;font-size:1.5rem;margin:1rem 0 0.5rem;color:#fff;">Thank You!</h3><p style="color:rgba(255,255,255,0.6);font-size:0.95rem;">We\'ve received your details. Our team will contact you within 24 hours to schedule your free data audit.</p></div>';
                 messageDiv.classList.add('success');
                 messageDiv.classList.remove('error');
             })
