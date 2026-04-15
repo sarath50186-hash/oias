@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OIAS | Restaurant Performance Intelligence — One In All Solutions</title>
+  <meta name="description" content="OIAS (One In All Solutions) finds where your restaurants leak money. POS analytics, food cost optimization, labor forecasting & real-time dashboards for multi-location food brands."/>
+  <meta name="keywords" content="restaurant analytics, POS data, food cost analysis, labor forecasting, franchise KPI, cloud kitchen, restaurant performance intelligence, OIAS, One In All Solutions"/>
+  <meta name="author" content="OIAS — One In All Solutions"/>
+  <meta property="og:title" content="OIAS | Your Restaurants Are Leaking Money. We Find Where."/>
+  <meta property="og:description" content="Restaurant Performance Intelligence — turning POS chaos into profit clarity for multi-location food brands."/>
+  <meta property="og:type" content="website"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary: #09090B;
+      --bg-secondary: #111113;
+      --bg-tertiary: #18181B;
+      --bg-card: #1C1C1F;
+      --gold: #D4A853;
+      --gold-light: #E8C97A;
+      --gold-dark: #B8903D;
+      --gold-muted: rgba(212,168,83,0.12);
+      --white: #FAFAF9;
+      --white-80: rgba(250,250,249,0.8);
+      --white-60: rgba(250,250,249,0.6);
+      --white-40: rgba(250,250,249,0.4);
+      --white-20: rgba(250,250,249,0.2);
+      --white-10: rgba(250,250,249,0.1);
+      --white-05: rgba(250,250,249,0.05);
+      --green: #22C55E;
+      --blue: #3B82F6;
+      --red: #EF4444;
+      --border: rgba(212,168,83,0.15);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --radius-xs: 6px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: var(--bg-primary);
+      color: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::selection { background: var(--gold); color: var(--bg-primary); }
+
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 2rem; }
+
+    /* ═══════════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════════ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1.25rem 0;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .nav.scrolled {
+      background: rgba(9,9,11,0.92);
+      backdrop-filter: blur(24px) saturate(1.4);
+      -webkit-backdrop-filter: blur(24px) saturate(1.4);
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1240px; margin: 0 auto; padding: 0 2rem;
+    }
+    .nav-logo {
+      font-family: 'Inter', sans-serif;
+      font-weight: 900; font-size: 1.6rem;
+      color: var(--gold); letter-spacing: 0.08em;
+      text-decoration: none;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .nav-logo-dot {
+      width: 8px; height: 8px; background: var(--gold);
+      border-radius: 50%; display: inline-block;
+    }
+    .nav-menu { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+    .nav-menu a {
+      font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--white-60);
+      text-decoration: none; transition: color 0.3s;
+      position: relative;
+    }
+    .nav-menu a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1.5px; background: var(--gold);
+      transition: width 0.3s ease;
+    }
+    .nav-menu a:hover { color: var(--white); }
+    .nav-menu a:hover::after { width: 100%; }
+    .nav-cta-btn {
+      background: var(--gold) !important; color: var(--bg-primary) !important;
+      padding: 0.6rem 1.6rem !important; border-radius: var(--radius-xs) !important;
+      font-weight: 700 !important; letter-spacing: 0.04em !important;
+      transition: all 0.3s !important;
+    }
+    .nav-cta-btn::after { display: none !important; }
+    .nav-cta-btn:hover {
+      background: var(--gold-light) !important;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(212,168,83,0.25);
+    }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px; z-index: 1001;
+    }
+    .hamburger span {
+      width: 24px; height: 2px; background: var(--white);
+      transition: all 0.3s; display: block;
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* ═══════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════ */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      padding: 8rem 0 6rem;
+    }
+    .hero-bg-grid {
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(212,168,83,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212,168,83,0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+    .hero-glow-1 {
+      position: absolute; top: -20%; right: -10%;
+      width: 800px; height: 800px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,168,83,0.08) 0%, transparent 65%);
+      z-index: 0;
+    }
+    .hero-glow-2 {
+      position: absolute; bottom: -30%; left: -15%;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,130,246,0.04) 0%, transparent 65%);
+      z-index: 0;
+    }
+    .hero-noise {
+      position: absolute; inset: 0; z-index: 0; opacity: 0.015;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1.1fr 0.9fr;
+      gap: 5rem; align-items: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      border: 1px solid var(--border); padding: 0.4rem 1.2rem 0.4rem 0.8rem;
+      border-radius: 50px; margin-bottom: 2rem; width: fit-content;
+    }
+    .hero-eyebrow-dot {
+      width: 7px; height: 7px; background: var(--green);
+      border-radius: 50%; animation: blink 2s ease infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .hero-eyebrow span {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--gold);
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5.5vw, 4.8rem);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -0.02em; margin-bottom: 1.8rem;
+    }
+    .hero h1 .gold { color: var(--gold); }
+    .hero h1 .thin {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300; font-style: italic;
+      font-size: 0.75em; color: var(--white-60);
+    }
+    .hero-desc {
+      font-size: 1.1rem; line-height: 1.85;
+      color: var(--white-60); max-width: 520px;
+      margin-bottom: 2.5rem;
+    }
+    .hero-desc strong { color: var(--white-80); font-weight: 600; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .btn-gold {
+      background: var(--gold); color: var(--bg-primary);
+      padding: 0.95rem 2.4rem; border: none; border-radius: var(--radius-xs);
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.04em;
+      text-transform: uppercase; text-decoration: none; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      transition: all 0.3s;
+    }
+    .btn-gold:hover {
+      background: var(--gold-light); transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(212,168,83,0.3);
+    }
+    .btn-gold svg { transition: transform 0.3s; }
+    .btn-gold:hover svg { transform: translateX(3px); }
+    .btn-outline {
+      background: transparent; color: var(--white);
+      padding: 0.95rem 2.4rem;
+      border: 1px solid var(--white-20); border-radius: var(--radius-xs);
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em;
+      text-transform: uppercase; text-decoration: none;
+      transition: all 0.3s;
+    }
+    .btn-outline:hover {
+      border-color: var(--gold); color: var(--gold);
+      background: rgba(212,168,83,0.05);
+    }
+    .hero-trust {
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .hero-trust-avatars {
+      display: flex;
+    }
+    .hero-trust-avatars span {
+      width: 34px; height: 34px; border-radius: 50%;
+      border: 2px solid var(--bg-primary);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700;
+      margin-left: -8px;
+    }
+    .hero-trust-avatars span:first-child { margin-left: 0; }
+    .hero-trust-avatars .a1 { background: #7C3AED; color: white; }
+    .hero-trust-avatars .a2 { background: #2563EB; color: white; }
+    .hero-trust-avatars .a3 { background: #059669; color: white; }
+    .hero-trust-avatars .a4 { background: var(--gold); color: var(--bg-primary); }
+    .hero-trust-text {
+      font-size: 0.8rem; color: var(--white-40); line-height: 1.4;
+    }
+    .hero-trust-text strong { color: var(--white-60); }
+
+    /* Hero Dashboard */
+    .hero-dashboard { position: relative; }
+    .dash-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--white-10);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.03);
+    }
+    .dash-topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--white-05);
+    }
+    .dash-dots { display: flex; gap: 6px; }
+    .dash-dots span { width: 10px; height: 10px; border-radius: 50%; }
+    .dash-dots .r { background: #EF4444; }
+    .dash-dots .y { background: #F59E0B; }
+    .dash-dots .g { background: #22C55E; }
+    .dash-title-bar {
+      font-size: 0.7rem; color: var(--white-40);
+      letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600;
+    }
+    .dash-body { padding: 1.5rem; }
+    .dash-kpis {
+      display: grid; grid-template-columns: repeat(2,1fr);
+      gap: 0.75rem; margin-bottom: 1.25rem;
+    }
+    .kpi {
+      background: var(--white-05); border: 1px solid var(--white-05);
+      border-radius: var(--radius-sm); padding: 1rem;
+    }
+    .kpi-label {
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--white-40); margin-bottom: 0.4rem;
+    }
+    .kpi-row { display: flex; align-items: baseline; gap: 0.5rem; }
+    .kpi-val { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; }
+    .kpi-badge {
+      font-size: 0.65rem; font-weight: 700; padding: 0.15rem 0.5rem;
+      border-radius: 50px;
+    }
+    .kpi-badge.up { background: rgba(34,197,94,0.12); color: var(--green); }
+    .kpi-badge.down { background: rgba(239,68,68,0.12); color: var(--red); }
+    .kpi-badge.saved { background: rgba(34,197,94,0.12); color: var(--green); }
+    .dash-chart {
+      background: var(--white-05); border: 1px solid var(--white-05);
+      border-radius: var(--radius-sm); padding: 1rem 1rem 0.75rem;
+    }
+    .chart-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .chart-header span {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--white-40);
+    }
+    .chart-legend { display: flex; gap: 1rem; }
+    .chart-legend div {
+      display: flex; align-items: center; gap: 0.3rem;
+      font-size: 0.6rem; color: var(--white-40);
+    }
+    .chart-legend .dot { width: 6px; height: 6px; border-radius: 50%; }
+    .chart-bars { display: flex; align-items: flex-end; gap: 4px; height: 100px; }
+    .chart-bars .bar-group { flex: 1; display: flex; gap: 2px; align-items: flex-end; }
+    .chart-bars .bar {
+      flex: 1; border-radius: 3px 3px 0 0;
+      min-height: 6px; transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .bar.revenue { background: var(--gold); }
+    .bar.cost { background: rgba(59,130,246,0.5); }
+    .dash-float {
+      position: absolute; background: var(--bg-card);
+      border: 1px solid var(--white-10); border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.65rem;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+      animation: float 4s ease-in-out infinite;
+    }
+    .dash-float-1 { top: -15px; right: -20px; animation-delay: 0s; }
+    .dash-float-2 { bottom: 30px; left: -30px; animation-delay: 1.5s; }
+    @keyframes float {
+      0%,100%{ transform: translateY(0); }
+      50%{ transform: translateY(-8px); }
+    }
+    .float-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .float-icon.green-bg { background: rgba(34,197,94,0.12); }
+    .float-icon.gold-bg { background: var(--gold-muted); }
+    .float-text { font-size: 0.72rem; }
+    .float-text strong { display: block; font-weight: 700; font-size: 0.85rem; color: var(--white); }
+    .float-text span { color: var(--white-40); }
+
+    /* ═══════════════════════════════════════
+       STATS
+    ═══════════════════════════════════════ */
+    .stats-section {
+      padding: 4.5rem 0;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--white-05);
+      border-bottom: 1px solid var(--white-05);
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 2rem; text-align: center;
+    }
+    .stat { position: relative; }
+    .stat:not(:last-child)::after {
+      content: ''; position: absolute; right: 0; top: 15%;
+      height: 70%; width: 1px; background: var(--white-10);
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem; font-weight: 800; color: var(--gold);
+      margin-bottom: 0.3rem; letter-spacing: -0.02em;
+    }
+    .stat-label {
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--white-40);
+    }
+
+    /* ═══════════════════════════════════════
+       PROBLEM SECTION
+    ═══════════════════════════════════════ */
+    .problem {
+      padding: 7rem 0;
+      background: var(--bg-primary);
+      border-bottom: 1px solid var(--white-05);
+    }
+    .problem-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .problem-cards {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .problem-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--white-05);
+      border-radius: var(--radius-sm);
+      padding: 1.5rem;
+      transition: all 0.3s;
+    }
+    .problem-card:hover {
+      border-color: var(--red);
+      background: rgba(239,68,68,0.03);
+    }
+    .problem-card .pc-icon {
+      font-size: 1.5rem; margin-bottom: 0.75rem; display: block;
+    }
+    .problem-card h4 {
+      font-size: 0.9rem; font-weight: 700; margin-bottom: 0.4rem;
+      color: var(--white-80);
+    }
+    .problem-card p {
+      font-size: 0.78rem; color: var(--white-40); line-height: 1.6;
+    }
+    .problem-stat-highlight {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, rgba(239,68,68,0.08), rgba(239,68,68,0.03));
+      border: 1px solid rgba(239,68,68,0.15);
+      border-radius: var(--radius-sm);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .problem-stat-highlight .big-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem; font-weight: 800; color: var(--red);
+    }
+    .problem-stat-highlight p {
+      font-size: 0.85rem; color: var(--white-40); margin-top: 0.3rem;
+    }
+
+    /* ═══════════════════════════════════════
+       SERVICES
+    ═══════════════════════════════════════ */
+    .services { padding: 7rem 0; }
+    .section-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+    .section-badge::before {
+      content: ''; width: 28px; height: 1.5px; background: var(--gold);
+    }
+    .section-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; line-height: 1.15;
+      margin-bottom: 0.8rem; letter-spacing: -0.02em;
+    }
+    .section-desc {
+      font-size: 1.05rem; line-height: 1.8;
+      color: var(--white-60); max-width: 580px;
+      margin-bottom: 3.5rem;
+    }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(2,1fr);
+      gap: 1px; background: var(--white-05);
+      border-radius: var(--radius); overflow: hidden;
+      border: 1px solid var(--white-05);
+    }
+    .svc-card {
+      background: var(--bg-primary);
+      padding: 2.5rem; position: relative;
+      transition: background 0.4s;
+    }
+    .svc-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 2px; background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .svc-card:hover { background: var(--bg-secondary); }
+    .svc-card:hover::before { transform: scaleX(1); }
+    .svc-icon {
+      width: 52px; height: 52px;
+      background: var(--gold-muted); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 1.5rem;
+    }
+    .svc-card h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.15rem; font-weight: 700;
+      margin-bottom: 0.75rem; letter-spacing: -0.01em;
+    }
+    .svc-card > p {
+      font-size: 0.9rem; line-height: 1.75;
+      color: var(--white-60); margin-bottom: 1.5rem;
+    }
+    .svc-features { list-style: none; }
+    .svc-features li {
+      display: flex; align-items: center; gap: 0.65rem;
+      padding: 0.4rem 0;
+      font-size: 0.8rem; color: var(--white-40);
+      border-bottom: 1px solid var(--white-05);
+    }
+    .svc-features li:last-child { border-bottom: none; }
+    .svc-features li svg {
+      width: 14px; height: 14px; color: var(--gold); flex-shrink: 0;
+    }
+    .arrow-svg { width: 14px; height: 14px; }
+
+    /* ═══════════════════════════════════════
+       ABOUT
+    ═══════════════════════════════════════ */
+    .about {
+      padding: 7rem 0;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--white-05);
+    }
+    .about-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start;
+    }
+    .about-text .section-desc { margin-bottom: 2.5rem; }
+    .about-values { list-style: none; counter-reset: vals; }
+    .about-values li {
+      counter-increment: vals;
+      display: flex; align-items: flex-start; gap: 1.2rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--white-05);
+    }
+    .val-index {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.85rem; font-weight: 800; color: var(--gold);
+      min-width: 30px; padding-top: 2px;
+    }
+    .val-content h4 {
+      font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem;
+    }
+    .val-content p {
+      font-size: 0.88rem; line-height: 1.7; color: var(--white-40);
+    }
+    .about-visual { position: relative; }
+    .about-card-stack { display: flex; flex-direction: column; gap: 1rem; }
+    .about-vcard {
+      background: var(--bg-card);
+      border: 1px solid var(--white-10);
+      border-radius: var(--radius-sm);
+      padding: 1.5rem 1.75rem;
+      display: flex; align-items: center; gap: 1.25rem;
+      transition: all 0.3s;
+    }
+    .about-vcard:hover {
+      border-color: var(--gold);
+      transform: translateX(6px);
+      background: var(--bg-tertiary);
+    }
+    .avc-icon {
+      width: 48px; height: 48px; min-width: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem;
+    }
+    .avc-icon.i1 { background: var(--gold-muted); }
+    .avc-icon.i2 { background: rgba(34,197,94,0.1); }
+    .avc-icon.i3 { background: rgba(59,130,246,0.1); }
+    .avc-icon.i4 { background: rgba(245,158,11,0.1); }
+    .avc-text h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .avc-text p { font-size: 0.8rem; color: var(--white-40); line-height: 1.5; }
+    .core-values-block {
+      margin-top: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--white-10);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .cvb-header {
+      padding: 1.25rem 1.75rem;
+      border-bottom: 1px solid var(--white-05);
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold);
+    }
+    .cvb-items { padding: 0.5rem 0; }
+    .cvb-item {
+      padding: 1rem 1.75rem;
+      border-left: 3px solid transparent;
+      transition: all 0.3s;
+    }
+    .cvb-item:hover {
+      background: var(--white-05);
+      border-left-color: var(--gold);
+    }
+    .cvb-item strong {
+      display: block; font-size: 0.92rem; font-weight: 600;
+      margin-bottom: 0.15rem;
+    }
+    .cvb-item span {
+      font-size: 0.8rem; color: var(--white-40); line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════
+       TECHNOLOGY (Data Analytics & Architecture)
+    ═══════════════════════════════════════ */
+    .technology { padding: 7rem 0; border-top: 1px solid var(--white-05); }
+    .tech-header { text-align: center; margin-bottom: 4rem; }
+    .tech-header .section-desc { margin: 0 auto; max-width: 640px; }
+    .tech-tabs {
+      display: flex; justify-content: center; gap: 0.5rem;
+      margin-bottom: 3rem;
+    }
+    .tech-tab {
+      background: var(--white-05); border: 1px solid var(--white-05);
+      color: var(--white-60); padding: 0.6rem 1.5rem;
+      border-radius: 50px; font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.04em; cursor: pointer;
+      transition: all 0.3s; text-transform: uppercase;
+    }
+    .tech-tab.active, .tech-tab:hover {
+      background: var(--gold-muted); border-color: var(--gold);
+      color: var(--gold);
+    }
+    .tech-content { display: none; }
+    .tech-content.active { display: block; }
+    .tech-grid-3 {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1.25rem;
+    }
+    .tech-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--white-05);
+      border-radius: var(--radius);
+      padding: 2rem; transition: all 0.4s;
+      position: relative; overflow: hidden;
+    }
+    .tech-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px; background: linear-gradient(90deg, var(--gold), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .tech-card:hover {
+      border-color: var(--border);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+    }
+    .tech-card:hover::after { opacity: 1; }
+    .tech-card-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; margin-bottom: 1.25rem;
+    }
+    .tech-card-icon.gold { background: var(--gold-muted); }
+    .tech-card-icon.blue { background: rgba(59,130,246,0.1); }
+    .tech-card-icon.green { background: rgba(34,197,94,0.1); }
+    .tech-card-icon.purple { background: rgba(139,92,246,0.1); }
+    .tech-card-icon.orange { background: rgba(245,158,11,0.1); }
+    .tech-card-icon.red { background: rgba(239,68,68,0.1); }
+    .tech-card h4 {
+      font-size: 1rem; font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+    .tech-card p {
+      font-size: 0.85rem; color: var(--white-40);
+      line-height: 1.7; margin-bottom: 1rem;
+    }
+    .tech-card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tech-tag {
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--gold);
+      background: var(--gold-muted); padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+    .tech-tag.blue-tag { color: var(--blue); background: rgba(59,130,246,0.1); }
+    .tech-tag.green-tag { color: var(--green); background: rgba(34,197,94,0.1); }
+
+    /* Tech architecture diagram */
+    .arch-diagram {
+      margin-top: 2rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--white-05);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+    }
+    .arch-title {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 2rem; text-align: center;
+    }
+    .arch-layers { display: flex; flex-direction: column; gap: 0.75rem; }
+    .arch-layer {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--white-05);
+      transition: all 0.3s;
+    }
+    .arch-layer:hover {
+      border-color: var(--gold);
+      background: var(--white-05);
+    }
+    .arch-layer-label {
+      min-width: 140px; font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .arch-layer-label.gold-l { color: var(--gold); }
+    .arch-layer-label.blue-l { color: var(--blue); }
+    .arch-layer-label.green-l { color: var(--green); }
+    .arch-layer-label.purple-l { color: #8B5CF6; }
+    .arch-layer-items {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; flex: 1;
+    }
+    .arch-item {
+      font-size: 0.75rem; color: var(--white-40);
+      background: var(--white-05); padding: 0.3rem 0.8rem;
+      border-radius: 4px; white-space: nowrap;
+    }
+    .arch-arrow {
+      text-align: center; font-size: 1.2rem; color: var(--white-20);
+      padding: 0.25rem 0;
+    }
+
+    /* ═══════════════════════════════════════
+       PROCESS
+    ═══════════════════════════════════════ */
+    .process { padding: 7rem 0; }
+    .process-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+    .process-step {
+      background: var(--bg-secondary);
+      border: 1px solid var(--white-05);
+      border-radius: var(--radius);
+      padding: 2rem; position: relative;
+      text-align: center; transition: all 0.4s;
+    }
+    .process-step:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
+    .step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem; font-weight: 800;
+      color: var(--gold-muted); margin-bottom: 1rem; line-height: 1;
+    }
+    .step-num span { color: var(--gold); }
+    .process-step h3 {
+      font-size: 1rem; font-weight: 700; margin-bottom: 0.6rem;
+    }
+    .process-step p {
+      font-size: 0.82rem; color: var(--white-40); line-height: 1.65;
+    }
+
+    /* ═══════════════════════════════════════
+       TESTIMONIAL
+    ═══════════════════════════════════════ */
+    .testimonial {
+      padding: 6rem 0;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--white-05);
+      border-bottom: 1px solid var(--white-05);
+    }
+    .testimonial-inner {
+      max-width: 800px; margin: 0 auto; text-align: center;
+    }
+    .testimonial-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      font-weight: 700; font-style: italic;
+      line-height: 1.5; color: var(--white-80);
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .testimonial-quote::before {
+      content: '\201C'; font-size: 5rem; color: var(--gold);
+      position: absolute; top: -2.5rem; left: 50%; transform: translateX(-50%);
+      font-style: normal; line-height: 1; opacity: 0.3;
+    }
+    .testimonial-author {
+      display: flex; align-items: center; justify-content: center; gap: 1rem;
+    }
+    .testimonial-avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--gold-muted);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; font-weight: 800; color: var(--gold);
+    }
+    .testimonial-info { text-align: left; }
+    .testimonial-info strong {
+      display: block; font-size: 0.95rem; font-weight: 700;
+    }
+    .testimonial-info span {
+      font-size: 0.8rem; color: var(--white-40);
+    }
+
+    /* ═══════════════════════════════════════
+       CTA
+    ═══════════════════════════════════════ */
+    .cta {
+      padding: 8rem 0;
+      background: var(--gold);
+      position: relative; overflow: hidden;
+      text-align: center;
+    }
+    .cta::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+    .cta-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+    .cta .section-badge { color: var(--bg-primary); }
+    .cta .section-badge::before { background: var(--bg-primary); }
+    .cta .section-head { color: var(--bg-primary); }
+    .cta-desc {
+      font-size: 1.05rem; line-height: 1.8;
+      color: rgba(9,9,11,0.6); margin-bottom: 2.5rem;
+    }
+    .cta-guarantee {
+      font-size: 0.85rem; color: rgba(9,9,11,0.5);
+      margin-top: 1.5rem;
+    }
+    .cta-guarantee strong { color: rgba(9,9,11,0.7); }
+    .btn-dark {
+      background: var(--bg-primary); color: var(--white);
+      padding: 1rem 2.5rem; border: none; border-radius: var(--radius-xs);
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.04em;
+      text-transform: uppercase; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      transition: all 0.3s; cursor: pointer;
+    }
+    .btn-dark:hover {
+      background: var(--bg-secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+    }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+    .footer {
+      background: #050506; padding: 5rem 0 2rem;
+      border-top: 1px solid var(--white-05);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2.2fr 1fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 4rem;
+    }
+    .footer-brand p {
+      font-size: 0.88rem; line-height: 1.75;
+      color: var(--white-40); margin-top: 1.2rem;
+      max-width: 300px;
+    }
+    .footer-col h4 {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 0.65rem; }
+    .footer-col a {
+      font-size: 0.88rem; color: var(--white-40);
+      text-decoration: none; transition: color 0.3s;
+    }
+    .footer-col a:hover { color: var(--white); }
+    .footer-col .contact-item {
+      font-size: 0.85rem; color: var(--white-40);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .footer-divider { height: 1px; background: var(--white-05); margin-bottom: 2rem; }
+    .footer-bottom {
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-bottom p { font-size: 0.78rem; color: var(--white-20); }
+    .footer-legal { display: flex; gap: 2rem; }
+    .footer-legal a {
+      font-size: 0.78rem; color: var(--white-20);
+      text-decoration: none; transition: color 0.3s;
+    }
+    .footer-legal a:hover { color: var(--gold); }
+
+    /* ═══════════════════════════════════════
+       ANIMATIONS
+    ═══════════════════════════════════════ */
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.35s; }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-eyebrow { margin: 0 auto 2rem; }
+      .hero-desc { margin: 0 auto 2.5rem; }
+      .hero-btns { justify-content: center; }
+      .hero-trust { justify-content: center; }
+      .hero-dashboard { max-width: 480px; margin: 3rem auto 0; }
+      .problem-inner { grid-template-columns: 1fr; }
+      .about-inner { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: repeat(2,1fr); }
+      .tech-grid-3 { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 768px) {
+      .container { padding: 0 1.25rem; }
+      .nav-menu {
+        display: none; position: fixed; inset: 0;
+        background: rgba(9,9,11,0.98); flex-direction: column;
+        justify-content: center; align-items: center; gap: 2.5rem;
+      }
+      .nav-menu.active { display: flex; }
+      .nav-menu a { font-size: 1.1rem; }
+      .hamburger { display: flex; }
+      .hero { padding: 6rem 0 4rem; }
+      .hero h1 { font-size: 2.4rem; }
+      .stats-grid { grid-template-columns: repeat(2,1fr); gap: 1.5rem; }
+      .stat:not(:last-child)::after { display: none; }
+      .services-grid { grid-template-columns: 1fr; }
+      .tech-grid-3 { grid-template-columns: 1fr; }
+      .arch-layer { flex-direction: column; gap: 0.5rem; }
+      .arch-layer-label { min-width: auto; }
+      .problem-cards { grid-template-columns: 1fr; }
+      .about-inner { gap: 3rem; }
+      .process-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .dash-float { display: none; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .footer-legal { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═════ NAVIGATION ═════ -->
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">OIAS</a>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="#problem">The Problem</a></li>
+      <li><a href="#services">Solutions</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#technology">Technology</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#cta" class="nav-cta-btn">Free Data Audit</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ═════ HERO ═════ -->
+<section class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-glow-1"></div>
+  <div class="hero-glow-2"></div>
+  <div class="hero-noise"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-text-col">
+        <div class="hero-eyebrow">
+          <span class="hero-eyebrow-dot"></span>
+          <span>Restaurant Performance Intelligence</span>
+        </div>
+        <h1>Your Restaurants Are <span class="gold">Leaking Money.</span><br/><span class="thin">We Find Where.</span></h1>
+        <p class="hero-desc">Most restaurant chains lose <strong>3&ndash;5% of revenue</strong> to invisible inefficiencies &mdash; bad food costing, labor misalignment, and untracked waste. OIAS connects to your POS, finds the leaks, and plugs them. <strong>Permanently.</strong></p>
+        <div class="hero-btns">
+          <a href="#cta" class="btn-gold">
+            Get Your Free Data Audit
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a href="#services" class="btn-outline">See How It Works</a>
+        </div>
+        <div class="hero-trust">
+          <div class="hero-trust-avatars">
+            <span class="a1">R</span>
+            <span class="a2">K</span>
+            <span class="a3">M</span>
+            <span class="a4">S</span>
+          </div>
+          <div class="hero-trust-text">
+            Trusted by <strong>30+ restaurant locations</strong><br/>across franchise &amp; cloud kitchen brands
+          </div>
+        </div>
+      </div>
+      <div class="hero-dashboard">
+        <div class="dash-float dash-float-1 reveal">
+          <div class="float-icon green-bg">&#9650;</div>
+          <div class="float-text">
+            <strong>+18.3%</strong>
+            <span>Margin Recovered</span>
+          </div>
+        </div>
+        <div class="dash-float dash-float-2 reveal">
+          <div class="float-icon gold-bg">&#9733;</div>
+          <div class="float-text">
+            <strong>99.9%</strong>
+            <span>Data Accuracy</span>
+          </div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-topbar">
+            <div class="dash-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+            <div class="dash-title-bar">OIAS Dashboard &mdash; Live</div>
+          </div>
+          <div class="dash-body">
+            <div class="dash-kpis">
+              <div class="kpi">
+                <div class="kpi-label">Food Cost Control</div>
+                <div class="kpi-row">
+                  <span class="kpi-val">18-22%</span>
+                  <span class="kpi-badge up">&#10003; Target</span>
+                </div>
+              </div>
+              <div class="kpi">
+                <div class="kpi-label">Wastage Control</div>
+                <div class="kpi-row">
+                  <span class="kpi-val">4%</span>
+                  <span class="kpi-badge down">&darr; Reduced</span>
+                </div>
+              </div>
+              <div class="kpi">
+                <div class="kpi-label">Labor Efficiency</div>
+                <div class="kpi-row">
+                  <span class="kpi-val">91.2%</span>
+                  <span class="kpi-badge up">&uarr; 4.7%</span>
+                </div>
+              </div>
+              <div class="kpi">
+                <div class="kpi-label">Margin Recovery</div>
+                <div class="kpi-row">
+                  <span class="kpi-val">+5%</span>
+                  <span class="kpi-badge saved">&#10003; Avg</span>
+                </div>
+              </div>
+            </div>
+            <div class="dash-chart">
+              <div class="chart-header">
+                <span>Revenue vs Cost — Last 7 Weeks</span>
+                <div class="chart-legend">
+                  <div><span class="dot" style="background:var(--gold)"></span> Revenue</div>
+                  <div><span class="dot" style="background:rgba(59,130,246,0.5)"></span> Cost</div>
+                </div>
+              </div>
+              <div class="chart-bars" id="chartBars">
+                <div class="bar-group"><div class="bar revenue" data-h="60"></div><div class="bar cost" data-h="40"></div></div>
+                <div class="bar-group"><div class="bar revenue" data-h="68"></div><div class="bar cost" data-h="38"></div></div>
+                <div class="bar-group"><div class="bar revenue" data-h="72"></div><div class="bar cost" data-h="35"></div></div>
+                <div class="bar-group"><div class="bar revenue" data-h="80"></div><div class="bar cost" data-h="34"></div></div>
+                <div class="bar-group"><div class="bar revenue" data-h="85"></div><div class="bar cost" data-h="32"></div></div>
+                <div class="bar-group"><div class="bar revenue" data-h="90"></div><div class="bar cost" data-h="31"></div></div>
+                <div class="bar-group"><div class="bar revenue" data-h="95"></div><div class="bar cost" data-h="30"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ STATS ═════ -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat reveal">
+        <div class="stat-num">30+</div>
+        <div class="stat-label">Locations Served</div>
+      </div>
+      <div class="stat reveal reveal-delay-1">
+        <div class="stat-num">5%</div>
+        <div class="stat-label">Avg. Margin Recovery</div>
+      </div>
+      <div class="stat reveal reveal-delay-2">
+        <div class="stat-num">48hr</div>
+        <div class="stat-label">POS Integration Time</div>
+      </div>
+      <div class="stat reveal reveal-delay-3">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">POS Systems Supported</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ THE PROBLEM ═════ -->
+<section class="problem" id="problem">
+  <div class="container">
+    <div class="problem-inner">
+      <div>
+        <div class="section-badge reveal">The Problem</div>
+        <h2 class="section-head reveal">Your Data Is a Mess.<br/>Your Margins Pay the Price.</h2>
+        <p class="section-desc reveal">Every day, your POS systems generate thousands of data points. But if nobody is asking the right questions, that data just sits there &mdash; while your profits quietly disappear through cracks you can't even see.</p>
+      </div>
+      <div class="problem-cards">
+        <div class="problem-card reveal">
+          <span class="pc-icon">&#128176;</span>
+          <h4>Invisible Food Cost Leaks</h4>
+          <p>That bestselling biryani might be your top seller &mdash; but is it actually making you money? Most restaurants don't know their real per-plate cost.</p>
+        </div>
+        <div class="problem-card reveal reveal-delay-1">
+          <span class="pc-icon">&#128101;</span>
+          <h4>Labor Misalignment</h4>
+          <p>Overstaffed on slow Tuesdays, understaffed on Friday rushes. Without predictive data, you're always guessing &mdash; and always overspending.</p>
+        </div>
+        <div class="problem-card reveal reveal-delay-2">
+          <span class="pc-icon">&#128465;</span>
+          <h4>Untracked Waste</h4>
+          <p>Expired ingredients, over-portioning, and spoilage silently eat 2&ndash;3% of your food purchases. Every. Single. Month.</p>
+        </div>
+        <div class="problem-card reveal reveal-delay-3">
+          <span class="pc-icon">&#128202;</span>
+          <h4>Excel Nightmares</h4>
+          <p>Calling each location for numbers. Waiting for weekly reports. Copy-pasting into spreadsheets. Your Monday morning meetings shouldn't feel like torture.</p>
+        </div>
+        <div class="problem-stat-highlight reveal">
+          <div class="big-num">2&ndash;5%</div>
+          <p>of revenue lost to inefficiencies the average restaurant chain never catches</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ SERVICES ═════ -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-badge reveal">Our Solutions</div>
+    <h2 class="section-head reveal">We Don't Just Show Data.<br/>We Show You Where the Money Is.</h2>
+    <p class="section-desc reveal">Every service is built around one question: how do we put more money back in your pocket? Here's exactly how we do it.</p>
+    <div class="services-grid">
+      <div class="svc-card reveal">
+        <div class="svc-icon">&#128202;</div>
+        <h3>Revenue Intelligence</h3>
+        <p>Your POS has the answers, but nobody's asking the right questions. We connect the dots between your busiest hours, best-selling items, and most profitable channels &mdash; so you stop leaving money on the table.</p>
+        <ul class="svc-features">
+          <li><svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> Sales trend forecasting by daypart</li>
+          <li><svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> Channel attribution (dine-in vs delivery vs takeout)</li>
+          <li><svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> Per-location revenue benchmarking</li>
+        </ul>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon">&#127860;</div>
+        <h3>Menu &amp; Food Cost Engineering</h3>
+        <p>That biryani might be your bestseller &mdash; but is it actually profitable? We break down every recipe to the gram, so you know your real food cost. Not your assumed one.</p>
+        <ul class="svc-features">
+          <li><svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> Recipe-level cost modeling</li>
+          <li><svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> Menu mix profitability matrix</li>
+          <li><svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> Price elasticity &amp; margin optimization</li>
+        </ul>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon">&#9851;&#65039;</div>
+        <h3>Waste &amp; Inventory Control</h3>
+        <p>The average restaurant wastes 2&ndash;3% of food purchased. We track every ingredient, every expiry date, every over-portioned plate &mdash; and build systems so waste drops permanently.</p>
+        <ul class="svc-features">
+          <li><svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> Variance &amp; shrink reporting</li>
+          <li><svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> Par level auto-calibration</li>
+          <li><svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> Vendor spend benchmarking</li>
+        </ul>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon">&#9881;&#65039;</div>
+        <h3>Automation &amp; Live Dashboards</h3>
+        <p>No more Excel nightmares. No more calling each location for numbers. One dashboard, all locations, real-time. Your Monday morning meeting just got 10x easier.</p>
+        <ul class="svc-features">
+          <li><svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> POS data extraction &amp; normalization</li>
+          <li><svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> Predictive labor forecasting</li>
+          <li><svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> Multi-brand consolidated HQ view</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ ABOUT ═════ -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-text">
+        <div class="section-badge reveal">Who We Are</div>
+        <h2 class="section-head reveal">Restaurant Insiders.<br/>Not Generic Data Scientists.</h2>
+        <p class="section-desc reveal">We started OIAS because we saw restaurant owners drowning in spreadsheets while their margins disappeared. We knew there had to be a better way. We're people who understand the chaos of a Friday night dinner rush, the pressure of food cost variance, and the complexity of running 50 locations from one HQ.</p>
+        <ul class="about-values">
+          <li class="reveal">
+            <span class="val-index">01</span>
+            <div class="val-content">
+              <h4>We Speak Restaurant, Not Just Data</h4>
+              <p>Our team understands POS architectures, back-of-house inventory flows, and recipe costing methodologies. We know exactly where profit leaks occur because we've seen them firsthand.</p>
+            </div>
+          </li>
+          <li class="reveal reveal-delay-1">
+            <span class="val-index">02</span>
+            <div class="val-content">
+              <h4>Built for Multi-Brand Complexity</h4>
+              <p>Managing 50 franchise locations or a cloud kitchen network with 8 virtual brands? We build data pipelines specifically for complex org charts &mdash; not one-size-fits-all templates.</p>
+            </div>
+          </li>
+          <li class="reveal reveal-delay-2">
+            <span class="val-index">03</span>
+            <div class="val-content">
+              <h4>We're Measured in Dollars Recovered</h4>
+              <p>We don't just deliver dashboards. We deliver measurable margin improvements. Our clients don't evaluate us on how pretty the charts look &mdash; they measure us in money saved.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="about-visual">
+        <div class="about-card-stack">
+          <div class="about-vcard reveal">
+            <div class="avc-icon i1">&#128202;</div>
+            <div class="avc-text">
+              <h4>48-Hour POS Integration</h4>
+              <p>We connect to any POS system &mdash; fast</p>
+            </div>
+          </div>
+          <div class="about-vcard reveal reveal-delay-1">
+            <div class="avc-icon i2">&#128176;</div>
+            <div class="avc-text">
+              <h4>18% Average Margin Lift</h4>
+              <p>Visible results within the first 90 days</p>
+            </div>
+          </div>
+          <div class="about-vcard reveal reveal-delay-2">
+            <div class="avc-icon i3">&#128640;</div>
+            <div class="avc-text">
+              <h4>Scale Without Breaking</h4>
+              <p>From 5 locations to 500+ on the same system</p>
+            </div>
+          </div>
+          <div class="about-vcard reveal reveal-delay-3">
+            <div class="avc-icon i4">&#128161;</div>
+            <div class="avc-text">
+              <h4>Decisions, Not Just Data</h4>
+              <p>Insights you can act on today, not next quarter</p>
+            </div>
+          </div>
+        </div>
+        <div class="core-values-block reveal">
+          <div class="cvb-header">Our Promises to You</div>
+          <div class="cvb-items">
+            <div class="cvb-item">
+              <strong>Radical Data Accuracy</strong>
+              <span>Every number is cleansed, validated, and verified before it reaches your screen. We obsess over accuracy so you can trust every metric.</span>
+            </div>
+            <div class="cvb-item">
+              <strong>Complete Transparency</strong>
+              <span>No black-box algorithms. Every model, every calculation, every assumption is fully accessible to your leadership team.</span>
+            </div>
+            <div class="cvb-item">
+              <strong>Performance-Driven Partnerships</strong>
+              <span>We succeed only when your margins improve. Our value is measured in your bottom-line results &mdash; nothing else.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ TECHNOLOGY: DATA ANALYTICS & DATA ARCHITECTURE ═════ -->
+<section class="technology" id="technology">
+  <div class="container">
+    <div class="tech-header">
+      <div class="section-badge reveal">Our Technology</div>
+      <h2 class="section-head reveal">Enterprise-Grade Analytics.<br/>Restaurant-Grade Simplicity.</h2>
+      <p class="section-desc reveal">Behind every insight is a battle-tested data architecture designed for speed, accuracy, and infinite scale. Here's what powers OIAS under the hood.</p>
+    </div>
+
+    <div class="tech-tabs reveal">
+      <div class="tech-tab active" onclick="switchTab('analytics')">Data Analytics</div>
+      <div class="tech-tab" onclick="switchTab('architecture')">Data Architecture</div>
+    </div>
+
+    <!-- DATA ANALYTICS TAB -->
+    <div class="tech-content active" id="tab-analytics">
+      <div class="tech-grid-3">
+        <div class="tech-card reveal">
+          <div class="tech-card-icon gold">&#128202;</div>
+          <h4>Predictive Revenue Modeling</h4>
+          <p>Machine learning models trained on your historical POS data to forecast revenue by location, daypart, and channel &mdash; up to 4 weeks ahead with 94%+ accuracy.</p>
+          <div class="tech-card-tags">
+            <span class="tech-tag">ML Forecasting</span>
+            <span class="tech-tag">Time Series</span>
+          </div>
+        </div>
+        <div class="tech-card reveal reveal-delay-1">
+          <div class="tech-card-icon blue">&#128200;</div>
+          <h4>Real-Time Anomaly Detection</h4>
+          <p>Automated monitoring that catches unusual spikes in food cost, inventory shrink, or revenue drops the moment they happen &mdash; not at month-end when it's too late.</p>
+          <div class="tech-card-tags">
+            <span class="tech-tag blue-tag">Live Alerts</span>
+            <span class="tech-tag blue-tag">Statistical Analysis</span>
+          </div>
+        </div>
+        <div class="tech-card reveal reveal-delay-2">
+          <div class="tech-card-icon green">&#127919;</div>
+          <h4>Menu Engineering Matrix</h4>
+          <p>Multi-dimensional analysis combining sales velocity, contribution margin, food cost percentage, and customer preference data to classify every menu item as a Star, Puzzle, Plow Horse, or Dog.</p>
+          <div class="tech-card-tags">
+            <span class="tech-tag green-tag">BCG Matrix</span>
+            <span class="tech-tag green-tag">Optimization</span>
+          </div>
+        </div>
+        <div class="tech-card reveal">
+          <div class="tech-card-icon purple">&#128101;</div>
+          <h4>Labor Analytics &amp; Scheduling Intelligence</h4>
+          <p>Correlate foot traffic patterns, weather data, local events, and historical sales to generate optimal staffing schedules that reduce labor cost by 8&ndash;15% without impacting service quality.</p>
+          <div class="tech-card-tags">
+            <span class="tech-tag">Demand Forecasting</span>
+            <span class="tech-tag">Scheduling AI</span>
+          </div>
+        </div>
+        <div class="tech-card reveal reveal-delay-1">
+          <div class="tech-card-icon orange">&#128640;</div>
+          <h4>Cohort &amp; Location Benchmarking</h4>
+          <p>Compare any location against its peer group on 40+ KPIs. Identify top performers, surface best practices, and replicate success systematically across your entire network.</p>
+          <div class="tech-card-tags">
+            <span class="tech-tag">40+ KPIs</span>
+            <span class="tech-tag">Peer Ranking</span>
+          </div>
+        </div>
+        <div class="tech-card reveal reveal-delay-2">
+          <div class="tech-card-icon red">&#128269;</div>
+          <h4>Vendor &amp; Procurement Analytics</h4>
+          <p>Track supplier pricing trends, identify cost creep, benchmark vendor rates across locations, and flag purchase order anomalies before they compound into serious margin erosion.</p>
+          <div class="tech-card-tags">
+            <span class="tech-tag">Spend Analysis</span>
+            <span class="tech-tag">Cost Tracking</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DATA ARCHITECTURE TAB -->
+    <div class="tech-content" id="tab-architecture">
+      <div class="tech-grid-3">
+        <div class="tech-card reveal">
+          <div class="tech-card-icon gold">&#9881;&#65039;</div>
+          <h4>Universal POS Connectors</h4>
+          <p>Pre-built integrations for 30+ POS systems including Toast, Square, Clover, Lightspeed, Aloha, Revel, and custom legacy systems. New connectors built in under 48 hours.</p>
+          <div class="tech-card-tags">
+            <span class="tech-tag">REST APIs</span>
+            <span class="tech-tag">Webhooks</span>
+            <span class="tech-tag">ETL</span>
+          </div>
+        </div>
+        <div class="tech-card reveal reveal-delay-1">
+          <div class="tech-card-icon blue">&#128450;</div>
+          <h4>Data Lake &amp; Warehouse</h4>
+          <p>A centralized, schema-on-read data lake that ingests raw POS transactions, inventory events, labor logs, and vendor invoices &mdash; then transforms them into analysis-ready star schema models.</p>
+          <div class="tech-card-tags">
+            <span class="tech-tag blue-tag">Star Schema</span>
+            <span class="tech-tag blue-tag">Columnar Storage</span>
+          </div>
+        </div>
+        <div class="tech-card reveal reveal-delay-2">
+          <div class="tech-card-icon green">&#128256;</div>
+          <h4>Automated ETL Pipelines</h4>
+          <p>Event-driven data pipelines that extract, transform, load, and validate data continuously. Zero manual intervention. Automatic retry, logging, and data quality scoring on every batch.</p>
+          <div class="tech-card-tags">
+            <span class="tech-tag green-tag">Streaming</span>
+            <span class="tech-tag green-tag">Batch</span>
+            <span class="tech-tag green-tag">CDC</span>
+          </div>
+        </div>
+        <div class="tech-card reveal">
+          <div class="tech-card-icon purple">&#128274;</div>
+          <h4>Data Governance &amp; Security</h4>
+          <p>Role-based access control, data encryption at rest and in transit, SOC 2 compliant infrastructure, and complete audit trails. Your data is protected at every layer of the stack.</p>
+          <div class="tech-card-tags">
+            <span class="tech-tag">RBAC</span>
+            <span class="tech-tag">Encryption</span>
+            <span class="tech-tag">SOC 2</span>
+          </div>
+        </div>
+        <div class="tech-card reveal reveal-delay-1">
+          <div class="tech-card-icon orange">&#128736;</div>
+          <h4>Multi-Tenant Scalable Infrastructure</h4>
+          <p>Designed from day one for multi-brand, multi-location scale. Isolated tenant environments with shared compute. Go from 5 locations to 500+ without re-architecture or downtime.</p>
+          <div class="tech-card-tags">
+            <span class="tech-tag">Microservices</span>
+            <span class="tech-tag">Auto-Scaling</span>
+          </div>
+        </div>
+        <div class="tech-card reveal reveal-delay-2">
+          <div class="tech-card-icon red">&#128204;</div>
+          <h4>API-First &amp; Integration Ready</h4>
+          <p>RESTful APIs for every data endpoint. Push insights into your existing tools &mdash; Slack, email, ERP, accounting software. Embed dashboards directly into your internal systems.</p>
+          <div class="tech-card-tags">
+            <span class="tech-tag">REST API</span>
+            <span class="tech-tag">Embedded BI</span>
+            <span class="tech-tag">Webhooks</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Architecture Diagram -->
+      <div class="arch-diagram reveal">
+        <div class="arch-title">OIAS Data Architecture — End to End</div>
+        <div class="arch-layers">
+          <div class="arch-layer">
+            <div class="arch-layer-label gold-l">Data Sources</div>
+            <div class="arch-layer-items">
+              <span class="arch-item">POS Systems</span>
+              <span class="arch-item">Inventory Tools</span>
+              <span class="arch-item">Labor Scheduling</span>
+              <span class="arch-item">Vendor Invoices</span>
+              <span class="arch-item">Delivery Platforms</span>
+            </div>
+          </div>
+          <div class="arch-arrow">&#8595;</div>
+          <div class="arch-layer">
+            <div class="arch-layer-label blue-l">Ingestion</div>
+            <div class="arch-layer-items">
+              <span class="arch-item">API Connectors</span>
+              <span class="arch-item">Webhook Listeners</span>
+              <span class="arch-item">File Ingestion</span>
+              <span class="arch-item">Change Data Capture</span>
+            </div>
+          </div>
+          <div class="arch-arrow">&#8595;</div>
+          <div class="arch-layer">
+            <div class="arch-layer-label green-l">Processing</div>
+            <div class="arch-layer-items">
+              <span class="arch-item">Data Cleansing</span>
+              <span class="arch-item">Normalization</span>
+              <span class="arch-item">Validation Rules</span>
+              <span class="arch-item">Star Schema Transform</span>
+            </div>
+          </div>
+          <div class="arch-arrow">&#8595;</div>
+          <div class="arch-layer">
+            <div class="arch-layer-label purple-l">Intelligence</div>
+            <div class="arch-layer-items">
+              <span class="arch-item">ML Models</span>
+              <span class="arch-item">Anomaly Detection</span>
+              <span class="arch-item">Forecasting Engine</span>
+              <span class="arch-item">Benchmarking</span>
+              <span class="arch-item">Alerts</span>
+            </div>
+          </div>
+          <div class="arch-arrow">&#8595;</div>
+          <div class="arch-layer">
+            <div class="arch-layer-label gold-l">Delivery</div>
+            <div class="arch-layer-items">
+              <span class="arch-item">Live Dashboards</span>
+              <span class="arch-item">Scheduled Reports</span>
+              <span class="arch-item">API Endpoints</span>
+              <span class="arch-item">Slack / Email Alerts</span>
+              <span class="arch-item">Embedded BI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ PROCESS ═════ -->
+<section class="process" id="process">
+  <div class="container">
+    <div class="section-badge reveal">How It Works</div>
+    <h2 class="section-head reveal">From Data Chaos to<br/>Profit Clarity in 4 Steps</h2>
+    <p class="section-desc reveal">We've done this enough times to know exactly what works. Here's our proven playbook &mdash; designed for speed, accuracy, and ROI from week one.</p>
+    <div class="process-grid">
+      <div class="process-step reveal">
+        <div class="step-num"><span>01</span></div>
+        <h3>Free Data Audit</h3>
+        <p>We analyse your current POS stack, data quality, and operational workflows. We show you 3 profit leaks in your first call &mdash; guaranteed.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-1">
+        <div class="step-num"><span>02</span></div>
+        <h3>48-Hour Integration</h3>
+        <p>We connect to your POS systems, normalize messy data, and build clean pipelines. Most clients are live within 48 hours &mdash; not weeks.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="step-num"><span>03</span></div>
+        <h3>Custom Intelligence</h3>
+        <p>Dashboards, predictive models, and automated alerts &mdash; all calibrated to your specific operations, KPIs, and business goals.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="step-num"><span>04</span></div>
+        <h3>Optimize &amp; Scale</h3>
+        <p>Weekly insights, margin tracking, and continuous optimization. As you grow locations, your analytics scale with you seamlessly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ TESTIMONIAL ═════ -->
+<section class="testimonial">
+  <div class="container">
+    <div class="testimonial-inner reveal">
+      <div class="testimonial-quote">
+        OIAS showed us profit leaks we had no idea existed. Within 90 days, they brought our wastage under 2&ndash;3% control and optimized our food cost structure completely. They don't just give you data &mdash; they give you a game plan.
+      </div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">R</div>
+        <div class="testimonial-info">
+          <strong>Restaurant Chain Operator</strong>
+          <span>Multi-Location Franchise, 15+ Outlets</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ CTA ═════ -->
+<section class="cta" id="cta">
+  <div class="container">
+    <div class="cta-inner reveal">
+      <div class="section-badge">Let's Talk</div>
+      <h2 class="section-head">Ready to Stop the<br/>Profit Leaks?</h2>
+      <p class="cta-desc">Book a free 30-minute data audit. We'll show you exactly where your restaurants are losing money &mdash; and give you a clear plan to fix it. No commitment. No sales pitch. Just clarity.</p>
+      <a href="mailto:oiasconsultancyservice@gmail.com" class="btn-dark">
+        Book Your Free Data Audit
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <p class="cta-guarantee"><strong>Our guarantee:</strong> We'll identify at least 3 profit leaks in your first call &mdash; or we'll buy you lunch.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ FOOTER ═════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo">OIAS</a>
+        <p>One In All Solutions &mdash; Restaurant Performance Intelligence. We find where your restaurants leak money and plug the gaps permanently.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Solutions</h4>
+        <ul>
+          <li><a href="#services">Revenue Intelligence</a></li>
+          <li><a href="#services">Menu &amp; Cost Engineering</a></li>
+          <li><a href="#services">Waste Optimization</a></li>
+          <li><a href="#services">Automation &amp; Dashboards</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#process">Our Process</a></li>
+          <li><a href="#technology">Technology</a></li>
+          <li><a href="#cta">Free Data Audit</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get in Touch</h4>
+        <ul>
+          <li><span class="contact-item">&#128231; oiasconsultancyservice@gmail.com</span></li>
+          <li><span class="contact-item">&#128222; +91 9698909997</span></li>
+          <li><span class="contact-item">&#128205; Anna Arch Rd, NSK Nagar, Arumbakkam, Chennai, Tamil Nadu 600106</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 OIAS &mdash; One In All Solutions. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Navbar scroll
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Mobile menu
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('navMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+  });
+  document.querySelectorAll('.nav-menu a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      navMenu.classList.remove('active');
+    });
+  });
+
+  // Scroll reveal
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // Technology tabs
+  function switchTab(tab) {
+    document.querySelectorAll('.tech-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tech-content').forEach(c => c.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    event.target.classList.add('active');
+    // Re-observe reveals inside newly active tab
+    document.querySelectorAll('#tab-' + tab + ' .reveal:not(.visible)').forEach(el => revealObserver.observe(el));
+  }
+
+  // Animate chart bars
+  const chartObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.bar').forEach((bar, i) => {
+          const h = bar.getAttribute('data-h');
+          bar.style.height = '4%';
+          setTimeout(() => { bar.style.height = h + '%'; }, 150 + i * 80);
+        });
+        chartObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const chartEl = document.getElementById('chartBars');
+  if (chartEl) chartObs.observe(chartEl);
+</script>
+
+</body>
+</html>
